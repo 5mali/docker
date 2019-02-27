@@ -1,3 +1,30 @@
+**********************************************************************************
+# Run Container
+nvidia-docker run -d --ipc=host -p <port>:<port> --name <container_name> <user>/<image>:<tage> jupyter lab --ip 0.0.0.0 --port 9xx0 --allow-root --no-browser > /dev/null 2>&1 &
+nvidia-docker run -d --ipc=host -p 9xx0:9xx0 --name snoop_dog changa/eno:no_spark jupyter lab --ip 0.0.0.0 --port 9xx0 --allow-root --no-browser > /dev/null 2>&1 &
+
+# If container already exists
+docker start snoop_dog
+
+# Get Bash
+docker exec -it <container_name> /bin/bash
+docker exec -it snoop_dog /bin/bash
+
+**********************************************************************************
+# Commiting, Tagging and Pushing
+
+#Commit
+docker commit <running_container_name> <some_image_name>:<tag>
+docker commit snoopy eno:no_spark
+
+#Tag
+docker tag <image_name>:<tag> <user>/<image_name>:<tag>
+docker tag eno:no_spark changa/eno:no_spark
+
+#Push
+docker push <user>/<image_name>:<tag>
+docker push changa/eno:no_spark
+**********************************************************************************
 To completely uninstall Docker:
 
 Step 1
